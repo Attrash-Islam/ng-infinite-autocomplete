@@ -21,10 +21,14 @@ module.exports = function (config) {
 		singleRun: true,
 		reporters: ['dots', 'coverage'], 
 		files: [
+			'node_modules/angular/angular.js',
+			'node_modules/angular-mocks/angular-mocks.js',
+			'src/index.ts',
 			'test/index.ts'
 		],
 		webpack: webpackConf,
 		preprocessors: {
+			'src/index.ts': ['webpack'],
 			'test/index.ts': ['webpack']
 		},
 		coverageReporter: {
