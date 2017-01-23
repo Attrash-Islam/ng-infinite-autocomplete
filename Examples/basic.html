@@ -9,14 +9,21 @@
             on-select="vm.onSelectHandler($element, $data)">
         </ng-infinite-autocomplete>
 
+        {{vm.changes | json}}
+
+
         <script src="../node_modules/angular/angular.js"></script>
         <script src="../dist/index.debug.js"></script>
         <script>
             var myApp = angular.module('myApp', ['infinite-autocomplete']);
             myApp.controller('MainCtrl', function() {
                 var vm = this;
+                vm.changes = {
+                    setup: 'some'
+                };
                 vm.onSelectHandler = function() {
                     console.log(arguments);
+                    vm.changes.setup = 'on select event!';
                 }
                 vm.data = [
                     { text: 'Islam Attrash', value: 1},

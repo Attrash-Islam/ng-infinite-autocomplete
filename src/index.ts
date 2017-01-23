@@ -34,6 +34,7 @@ angular.module(`infinite-autocomplete`, [])
                             $element: element,
                             $data: data
                         });
+                        scope.$apply();
                     }
                 });
             }

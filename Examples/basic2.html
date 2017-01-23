@@ -10,23 +10,30 @@
             fetch-size="vm.fetchSize">
         </div>
 
+        {{vm.changes | json}}
+
         <script src="../node_modules/angular/angular.js"></script>
         <script src="../dist/index.debug.js"></script>
         <script>
             var myApp = angular.module('myApp', ['infinite-autocomplete']);
             myApp.controller('MainCtrl', ['$http', '$q', function($http, $q) {
                 var vm = this;
+                vm.changes = {
+                    setup: 'some'
+                };
                 vm.getData = function($text, $page, $fetchSize) {
                     var deferred = $q.defer();
+                    vm.changes.setup = $text + ', ' + $page + ', ' + $fetchSize;
                     $http.get("http://localhost:5000/data?text="+ $text + "&page=" + $page + "&fetchSize=" + $fetchSize)
                         .then(function(res) {
+                            //vm.changes.setup = 'received!';
                             deferred.resolve(res.data);
                         });
                     return deferred.promise;
                 }
                 vm.fetchSize = 3;
                 vm.onSelectHandler = function() {
-                    console.log(arguments);
+                    vm.changes.setup = 'selected!';
                 }
                 vm.data = [
                     { text: 'Islam Attrash', value: 1},
