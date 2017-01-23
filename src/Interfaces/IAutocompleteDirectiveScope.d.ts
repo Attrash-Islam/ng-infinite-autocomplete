@@ -20,4 +20,8 @@ export interface IAutocompleteDirectiveScope extends ng.IScope {
      * Bounded getDataFromApi on the directive scope
      */
     getDataFromApi:Function;
+    /**
+     * Bounded mutable status on the directive scope
+     */
+    mutable:boolean;
 }

@@ -101,6 +101,21 @@ describe(`ng-infinite-autocomplete Wrapper Unit Testing`, function() {
         });
 
 
+        it(`shouldn't call CORE.setConfig whenever the data mutates and it's immutable`, function() {
+            $scope.data = [{
+                text: 'text', value: 'value'
+            }];
+
+            element = $compile('<ng-infinite-autocomplete immutable data="data"></ng-infinite-autocomplete>')($scope);
+
+            $scope.$digest();
+
+            expect(InfiniteAutocompleteCore)
+                .toHaveBeenCalledWith(element[0]);
+            
+        });
+
+
     });
 
     describe(`fetchSize feature support`, function() {

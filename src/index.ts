@@ -21,6 +21,8 @@ angular.module(`infinite-autocomplete`, [])
                 element:ng.IAugmentedJQuery, 
                 attrs:ng.IAttributes) => {
 
+            scope.mutable = attrs['immutable'] === undefined;
+
             let inifinityAutocomplete = new InfiniteAutocompleteCore(
                 element[0]
             );
@@ -74,7 +76,7 @@ angular.module(`infinite-autocomplete`, [])
                         data: newData
                     });
                 }
-            }, true);
+            }, scope.mutable);
 
 
             let customInputWatchListener = scope.$watch(`customizedInput`, (newCustomizedInput) => {
