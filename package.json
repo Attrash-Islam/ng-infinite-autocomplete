@@ -57,7 +57,6 @@
     "webpack": "1.14.0"
   },
   "dependencies": {
-    "express": "^4.14.0",
     "infinite-autocomplete": "2.1.0"
   }
 }
