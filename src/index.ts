@@ -36,6 +36,7 @@ angular.module(`infinite-autocomplete`, [])
                 });
             }
 
+
             if(attrs['getDataFromApi'] !== undefined) {
                 inifinityAutocomplete.setConfig({
                     getDataFromApi: function(text, page, fetchSize) {
@@ -85,12 +86,20 @@ angular.module(`infinite-autocomplete`, [])
             });
 
 
-            let customizedOptions = scope.$watch(`customizedOptions`, (newCustomizedOptions) => {
+            let customizedOptionsListener = scope.$watch(`customizedOptions`, (newCustomizedOptions) => {
                 if(newCustomizedOptions) {
                     inifinityAutocomplete.setConfig({
                         customizedOptions: newCustomizedOptions
                     });
                 }
+            });
+
+            scope.$on(`$destroy`, () => {
+                fetchSizeWatchListener();
+                maxHeightWatchListener();
+                dataWatchListener();
+                customInputWatchListener();
+                customizedOptionsListener();
             });
 
         }
