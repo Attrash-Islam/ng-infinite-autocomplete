@@ -27,6 +27,22 @@ describe(`ng-infinite-autocomplete Wrapper Unit Testing`, function() {
         $compile = $injector.get(`$compile`);
     }));
 
+    
+    describe(`ng-infinite-autocomplete as attribute`, function() {
+        it(`should work as expected and call InfiniteAutocomplete core plugin`, function() {
+            $scope.data = [{
+                text: 'text', value: 'value'
+            }];
+            element = $compile('<div ng-infinite-autocomplete data="data"></div>')($scope);
+
+            $scope.$digest();
+
+            expect(InfiniteAutocompleteCore)
+                .toHaveBeenCalledWith(element[0]);
+        });
+    });
+
+
     describe(`Data feature support`, function() {
 
         it(`should pass the data into the InfiniteAutocomplete core plugin`, function() {
