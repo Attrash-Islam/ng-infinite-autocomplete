@@ -1,6 +1,6 @@
 import * as angular from 'angular';
 //Don't use InfiniteAutocomplete, use InfiniteAutocompleteCore instead
-import { InfiniteAutocomplete, InputComponent } from 'infinite-autocomplete';
+import { InfiniteAutocomplete } from 'infinite-autocomplete';
 import { IAutocompleteDirectiveScope } from './Interfaces/IAutocompleteDirectiveScope';
 
 angular.module(`infinite-autocomplete`, [])
@@ -104,5 +104,6 @@ angular.module(`infinite-autocomplete`, [])
 
         }
     }
+
 }]);
 
