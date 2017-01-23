@@ -294,4 +294,113 @@ describe(`ng-infinite-autocomplete Wrapper Unit Testing`, function() {
 
     });
 
+
+    describe(`customizedInput feature support`, function() {
+
+            it(`should pass the customized input to the CORE.setConfig`, function() {
+                $scope.customizedInput = (...args) => {}
+                $scope.data = [
+                    { text: 'first', value: 1 }
+                ];
+
+                element = $compile(`<ng-infinite-autocomplete
+                                                data="data"
+                                                customized-input="customizedInput">
+                                    </ng-infinite-autocomplete>`)($scope);
+
+                $scope.$digest();
+                
+                expect(InfiniteAutocompleteCore)
+                    .toHaveBeenCalledWith(element[0]);
+
+                expect(InfiniteAutocompleteCore.prototype.setConfig)
+                    .toHaveBeenCalledWith({
+                        customizedInput: jasmine.any(Function)
+                    });
+
+            });
+
+            it(`should pass the customized input to the CORE.setConfig whenever it changes`, function() {
+                $scope.customizedInput = (...args) => {}
+                $scope.data = [
+                    { text: 'first', value: 1 }
+                ];
+
+                element = $compile(`<ng-infinite-autocomplete
+                                                data="data"
+                                                customized-input="customizedInput">
+                                    </ng-infinite-autocomplete>`)($scope);
+
+                $scope.$digest();
+
+                var customizedInput2 = (...args) => {
+                    console.log(`another custom input`);
+                }
+
+                $scope.customizedInput = customizedInput2;
+                
+                expect(InfiniteAutocompleteCore)
+                    .toHaveBeenCalledWith(element[0]);
+
+                expect(InfiniteAutocompleteCore.prototype.setConfig)
+                    .toHaveBeenCalledTimes(2);
+
+            });
+
+    });
+
+    describe(`customizedOptions feature support`, function() {
+
+            it(`should pass the customized options to the CORE.setConfig`, function() {
+                $scope.customizedOptions = (...args) => {}
+                $scope.data = [
+                    { text: 'first', value: 1 }
+                ];
+
+                element = $compile(`<ng-infinite-autocomplete
+                                                data="data"
+                                                customized-options="customizedOptions">
+                                    </ng-infinite-autocomplete>`)($scope);
+
+                $scope.$digest();
+                
+                expect(InfiniteAutocompleteCore)
+                    .toHaveBeenCalledWith(element[0]);
+
+                expect(InfiniteAutocompleteCore.prototype.setConfig)
+                    .toHaveBeenCalledWith({
+                        customizedOptions: jasmine.any(Function)
+                    });
+
+            });
+
+            it(`should pass the customized options to the CORE.setConfig whenever it changes`, function() {
+                $scope.customizedOptions = (...args) => {}
+                $scope.data = [
+                    { text: 'first', value: 1 }
+                ];
+
+                element = $compile(`<ng-infinite-autocomplete
+                                                data="data"
+                                                customized-options="customizedOptions">
+                                    </ng-infinite-autocomplete>`)($scope);
+
+                $scope.$digest();
+
+                var customizedOptions2 = (...args) => {
+                    console.log(`another custom options`);
+                }
+
+                $scope.customizedInput = customizedOptions2;
+                
+                expect(InfiniteAutocompleteCore)
+                    .toHaveBeenCalledWith(element[0]);
+
+                expect(InfiniteAutocompleteCore.prototype.setConfig)
+                    .toHaveBeenCalledTimes(2);
+
+            });
+
+    });
+
 });

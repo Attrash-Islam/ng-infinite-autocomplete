@@ -1,6 +1,6 @@
 import * as angular from 'angular';
 //Don't use InfiniteAutocomplete, use InfiniteAutocompleteCore instead
-import { InfiniteAutocomplete } from 'infinite-autocomplete';
+import { InfiniteAutocomplete, InputComponent } from 'infinite-autocomplete';
 import { IAutocompleteDirectiveScope } from './Interfaces/IAutocompleteDirectiveScope';
 
 angular.module(`infinite-autocomplete`, [])
@@ -13,7 +13,9 @@ angular.module(`infinite-autocomplete`, [])
             fetchSize: '=',
             maxHeight: '=',
             onSelect: '&',
-            getDataFromApi: '&'
+            getDataFromApi: '&',
+            customizedInput: '=',
+            customizedOptions: '='
         },
         link: (scope:IAutocompleteDirectiveScope, 
                 element:ng.IAugmentedJQuery, 
@@ -34,7 +36,6 @@ angular.module(`infinite-autocomplete`, [])
                 });
             }
 
-            
             if(attrs['getDataFromApi'] !== undefined) {
                 inifinityAutocomplete.setConfig({
                     getDataFromApi: function(text, page, fetchSize) {
@@ -73,6 +74,25 @@ angular.module(`infinite-autocomplete`, [])
                     });
                 }
             }, true);
+
+
+            let customInputWatchListener = scope.$watch(`customizedInput`, (newCustomizedInput) => {
+                if(newCustomizedInput) {
+                    inifinityAutocomplete.setConfig({
+                        customizedInput: newCustomizedInput
+                    });
+                }
+            });
+
+
+            let customizedOptions = scope.$watch(`customizedOptions`, (newCustomizedOptions) => {
+                if(newCustomizedOptions) {
+                    inifinityAutocomplete.setConfig({
+                        customizedOptions: newCustomizedOptions
+                    });
+                }
+            });
+
         }
     }
 }]);
