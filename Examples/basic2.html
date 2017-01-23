@@ -3,18 +3,28 @@
     </head>
     <body ng-controller="MainCtrl as vm">
         
-        <ng-infinite-autocomplete
-            data="vm.data"
-            fetch-size="vm.fetchSize"
-            on-select="vm.onSelectHandler($element, $data)">
-        </ng-infinite-autocomplete>
+        <div    
+            ng-infinite-autocomplete
+            on-select="vm.onSelectHandler($element, $data)"
+            get-data-from-api="vm.getData($text, $page, $fetchSize)"
+            fetch-size="vm.fetchSize">
+        </div>
 
         <script src="../node_modules/angular/angular.js"></script>
         <script src="../dist/index.debug.js"></script>
         <script>
             var myApp = angular.module('myApp', ['infinite-autocomplete']);
-            myApp.controller('MainCtrl', function() {
+            myApp.controller('MainCtrl', ['$http', '$q', function($http, $q) {
                 var vm = this;
+                vm.getData = function($text, $page, $fetchSize) {
+                    var deferred = $q.defer();
+                    $http.get("http://localhost:5000/data?text="+ $text + "&page=" + $page + "&fetchSize=" + $fetchSize)
+                        .then(function(res) {
+                            deferred.resolve(res.data);
+                        });
+                    return deferred.promise;
+                }
+                vm.fetchSize = 3;
                 vm.onSelectHandler = function() {
                     console.log(arguments);
                 }
@@ -42,7 +52,7 @@
                     { text: 'Yosra Eawissat', value: {object: true}},
                     { text: 'Medium Articles', value: 'what'}
                 ];
-            })
+            }]);
         </script>
     </body>
 </html>
