@@ -228,16 +228,16 @@ describe(`ng-infinite-autocomplete Wrapper Unit Testing`, function() {
                 });
         });
 
+    });
 
-        describe(`onSelect feature support`, function() {
+
+    describe(`onSelect feature support`, function() {
 
             it(`should pass the function to the CORE.setConfig whenever we choose something`, function() {
                 $scope.onSelectHandler = (...args) => {}
                 $scope.data = [
                     { text: 'first', value: 1 }
                 ];
-
-                spyOn($scope, 'onSelectHandler').and.returnValue('');
 
                 element = $compile(`<ng-infinite-autocomplete
                                                 data="data"
@@ -256,6 +256,30 @@ describe(`ng-infinite-autocomplete Wrapper Unit Testing`, function() {
 
             });
 
+    });
+
+
+    describe(`getDataFromApi feature support`, function() {
+        
+        it(`should pass the function to CORE.setConfig`, function() {
+            $scope.getDataFromApi = (...args) => {}
+
+            element = $compile(`<ng-infinite-autocomplete
+                                            get-data-from-api="getDataFromApi($text, $page, $fetchSize)">
+                                </ng-infinite-autocomplete>`)($scope);
+
+            $scope.$digest();
+            
+            expect(InfiniteAutocompleteCore)
+                .toHaveBeenCalledWith(element[0]);
+
+            expect(InfiniteAutocompleteCore.prototype.setConfig)
+                .toHaveBeenCalledWith({
+                    getDataFromApi: jasmine.any(Function)
+                });
+
+            $scope.getDataFromApi();
+            
         });
 
     });

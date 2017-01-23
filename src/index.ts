@@ -12,7 +12,8 @@ angular.module(`infinite-autocomplete`, [])
             data: '=',
             fetchSize: '=',
             maxHeight: '=',
-            onSelect: '&'
+            onSelect: '&',
+            getDataFromApi: '&'
         },
         link: (scope:IAutocompleteDirectiveScope, 
                 element:ng.IAugmentedJQuery, 
@@ -22,7 +23,7 @@ angular.module(`infinite-autocomplete`, [])
                 element[0]
             );
 
-            if(scope.onSelect) {
+            if(attrs['onSelect'] !== undefined) {
                 inifinityAutocomplete.setConfig({
                     onSelect: function(element, data) {
                         scope.onSelect({
@@ -32,6 +33,20 @@ angular.module(`infinite-autocomplete`, [])
                     }
                 });
             }
+
+            
+            if(attrs['getDataFromApi'] !== undefined) {
+                inifinityAutocomplete.setConfig({
+                    getDataFromApi: function(text, page, fetchSize) {
+                        return scope.getDataFromApi({
+                            $text: text, 
+                            $page: page, 
+                            $fetchSize: fetchSize
+                        });
+                    }
+                });
+            }
+
 
             let fetchSizeWatchListener = scope.$watch(`fetchSize`, (newFetchSize) => {
                 if(newFetchSize) {
