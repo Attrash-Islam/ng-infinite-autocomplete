@@ -8,6 +8,7 @@ describe(`ng-infinite-autocomplete Wrapper Unit Testing`, function() {
     
     beforeEach(angular.mock.module(($provide:ng.auto.IProvideService) => {
 		InfiniteAutocompleteCore = jasmine.createSpy('InfiniteAutocompleteCore');
+        InfiniteAutocompleteCore.prototype.destroy = jasmine.createSpy('destroy');
         InfiniteAutocompleteCore.prototype.setConfig = jasmine.createSpy('setConfig')
             //Mock passed functions to be executed automatically to bypass low coverage report
             //Depends on the CORE Unit Testing 
@@ -39,6 +40,24 @@ describe(`ng-infinite-autocomplete Wrapper Unit Testing`, function() {
 
             expect(InfiniteAutocompleteCore)
                 .toHaveBeenCalledWith(element[0]);
+        });
+    });
+
+    describe(`destroy lifecycle hook`, function() {
+        it(`should call InfiniteAutocompleteCore.prototype.destroy when scope get destroy`, 
+            function() {
+                $scope.data = [{
+                text: 'text', value: 'value'
+            }];
+            element = $compile('<div ng-infinite-autocomplete data="data"></div>')($scope);
+
+            $scope.$digest();
+
+            expect(InfiniteAutocompleteCore)
+                .toHaveBeenCalledWith(element[0]);
+            $scope.$destroy();
+            expect(InfiniteAutocompleteCore.prototype.destroy)
+                .toHaveBeenCalled();
         });
     });
 

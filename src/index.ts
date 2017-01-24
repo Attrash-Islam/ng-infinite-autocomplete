@@ -98,11 +98,13 @@ angular.module(`infinite-autocomplete`, [])
             });
 
             scope.$on(`$destroy`, () => {
+                console.dir(inifinityAutocomplete);
                 fetchSizeWatchListener();
                 maxHeightWatchListener();
                 dataWatchListener();
                 customInputWatchListener();
                 customizedOptionsListener();
+                inifinityAutocomplete.destroy();
             });
 
         }
