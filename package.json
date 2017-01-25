@@ -3,6 +3,9 @@
   "version": "2.0.3",
   "description": "AngularJS 1.x infinite-autocomplete wrapper",
   "main": "./dist/index.js",
+  "files": [
+    "dist/"
+  ],
   "scripts": {
     "clean": "rimraf ./dist",
     "build": "npm run clean && npm run build:umd && npm run build:umd:debug",
