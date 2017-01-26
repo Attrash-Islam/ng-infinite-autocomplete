@@ -8,9 +8,16 @@ AngularJS 1.x Wrapper for <a href="https://github.com/Attrash-Islam/infinite-aut
 
 # Install
 
+via npm:
 ```
-npm i --save ng-infinite-autocomplete
+$ npm i --save ng-infinite-autocomplete
 ```
+
+via bower:
+```
+$ bower i -S ng-infinite-autocomplete
+```
+
 
 # Developer section
 
@@ -29,6 +36,7 @@ In the package.json scripts we've 4 basic tasks:
 ```js
 import * as angular from 'angular';
 import 'ng-infinite-autocomplete';
+//or <script src="bower_components/ng-infinite-autocomplete/dist/index.js"></script>
 
 //inject infinite-autocomplete as dependency for myApp module
 angular.module('myApp', ['infinite-autocomplete'])
@@ -144,7 +152,7 @@ See this section on <a href="https://github.com/Attrash-Islam/infinite-autocompl
             customized-options="vm.CustomOptions">
   </ng-infinite-autocomplete>
 ```
-This directive will use `vm.data` as a static data source, and the number of fetched data is `vm.fetchSize` in every scroll and/or search, the data will be treated as `immutable` and then you need to create new instance to update the options list for the autocomplete, it will run vm.onSelectHandler($element, $data) when selecting an option passing the clicked HTNLElement as the first argument and the data as the second one ({text: 'text', value: 'hi'}), and the maxmium height for the scrollable options will be vm.maxHeight (It will be overriden if not supplying enough scrollable area for options), and will use `vm.CustomInput` for implementing the input, and `vm.CustomOptions` for implementing the custom options also.
+This directive will use `vm.data` as a static data source, and the number of fetched data is `vm.fetchSize` in every scroll and/or search, the data will be treated as `immutable` and then you need to create new instance to update the options list for the autocomplete, it will run `vm.onSelectHandler($element, $data)` when selecting an option passing the clicked HTNLElement as the first argument and the data as the second one ({text: 'text', value: 'hi'}), and the maxmium height for the scrollable options will be `vm.maxHeight` (It will be overriden if not supplying enough scrollable area for options), and will use `vm.CustomInput` for implementing the input, and `vm.CustomOptions` for implementing the custom options also.
 
 You can exclude any attribute not desired as you like following the restrictions mentioned above.
 
