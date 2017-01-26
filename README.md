@@ -116,6 +116,35 @@ See this section on <a href="https://github.com/Attrash-Islam/infinite-autocompl
    * Customized options class to override the default input
    */
   customizedOptions?:IOptionsComponentConstructor;
+  /**
+   * treat data source as immutable - To improve $watch process
+   */
+   immutable?
 ```
 
-For more See <a href="https://github.com/Attrash-Islam/infinite-autocomplete">CORE</a>
+# Restrictions regards Attributes
+- You must choose to pass data or getDataFromApi depends on whether the data is static or dynamic
+- data attribute must be an array of { text: 'some text', value: 1}, and value could be any type (number, string, object..)
+- max-height should be a string
+- fetch-size should be a number
+- customizedInput should extend InputComponent [For more See <a href="https://github.com/Attrash-Islam/infinite-autocomplete">CORE</a>]
+- customizedOptions should extend OptionComponent [For more See <a href="https://github.com/Attrash-Islam/infinite-autocomplete">CORE</a>]
+
+
+# Directive Example
+
+```js
+  <ng-infinite-autocomplete
+            data="vm.data"
+            immutable
+            fetch-size="vm.fetchSize"
+            on-select="vm.onSelectHandler($element, $data)"
+            max-height="vm.maxHeight"
+            customized-input="vm.CustomInput"
+            customized-options="vm.CustomOptions">
+  </ng-infinite-autocomplete>
+```
+This directive will use `vm.data` as a static data source, and the number of fetched data is `vm.fetchSize` in every scroll and/or search, the data will be treated as `immutable` and then you need to create new instance to update the options list for the autocomplete, it will run vm.onSelectHandler($element, $data) when selecting an option passing the clicked HTNLElement as the first argument and the data as the second one ({text: 'text', value: 'hi'}), and the maxmium height for the scrollable options will be vm.maxHeight (It will be overriden if not supplying enough scrollable area for options), and will use `vm.CustomInput` for implementing the input, and `vm.CustomOptions` for implementing the custom options also.
+
+You can exclude any attribute not desired as you like following the restrictions mentioned above.
+
