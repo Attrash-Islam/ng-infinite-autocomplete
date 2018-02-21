@@ -13,9 +13,11 @@ angular.module(`infinite-autocomplete`, [])
             fetchSize: '=',
             maxHeight: '=',
             onSelect: '&',
+            onLoadingStateChange: '&',
+            onError: '&',
             getDataFromApi: '&',
             customizedInput: '=',
-            customizedOptions: '='
+            customizedOptions: '=',
         },
         link: (scope:IAutocompleteDirectiveScope, 
                 element:ng.IAugmentedJQuery, 
@@ -39,6 +41,27 @@ angular.module(`infinite-autocomplete`, [])
                 });
             }
 
+            if(attrs['onLoadingStateChange'] !== undefined) {
+              inifinityAutocomplete.setConfig({
+                onLoadingStateChange: function(loadingState) {
+                      scope.onLoadingStateChange({
+                          $loadingState: loadingState,
+                      });
+                      scope.$apply();
+                  }
+              });
+            }
+
+            if(attrs['onError'] !== undefined) {
+              inifinityAutocomplete.setConfig({
+                onError: function(error) {
+                      scope.onError({
+                          $error: error,
+                      });
+                      scope.$apply();
+                  }
+              });
+            }
 
             if(attrs['getDataFromApi'] !== undefined) {
                 inifinityAutocomplete.setConfig({

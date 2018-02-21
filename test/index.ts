@@ -16,6 +16,12 @@ describe(`ng-infinite-autocomplete Wrapper Unit Testing`, function() {
                 if(config.onSelect) {
                     config.onSelect();
                 }
+                if(config.onLoadingStateChange) {
+                  config.onLoadingStateChange();
+                }
+                if(config.onError) {
+                  config.onError();
+                }
                 if(config.getDataFromApi) {
                     config.getDataFromApi();
                 }
@@ -315,6 +321,60 @@ describe(`ng-infinite-autocomplete Wrapper Unit Testing`, function() {
                     });
 
             });
+
+    });
+
+    describe(`onLoadingStateChange feature support`, function() {
+
+      it(`should pass the function to the CORE.setConfig on loading state transitions`, function() {
+          $scope.onLoadingStateChangeHandler = () => {};
+          $scope.data = [
+              { text: 'first', value: 1 }
+          ];
+
+          element = $compile(`<ng-infinite-autocomplete
+                                          data="data"
+                                          on-loading-state-change="onLoadingStateChangeHandler($loadingState)">
+                              </ng-infinite-autocomplete>`)($scope);
+
+          $scope.$digest();
+          
+          expect(InfiniteAutocompleteCore)
+              .toHaveBeenCalledWith(element[0]);
+
+          expect(InfiniteAutocompleteCore.prototype.setConfig)
+              .toHaveBeenCalledWith({
+                onLoadingStateChange: jasmine.any(Function)
+              });
+
+      });
+
+    });
+
+    describe(`onError feature support`, function() {
+
+      it(`should pass the function to the CORE.setConfig when exceptions thrown`, function() {
+          $scope.onErrorHandler = () => {};
+          $scope.data = [
+              { text: 'first', value: 1 }
+          ];
+
+          element = $compile(`<ng-infinite-autocomplete
+                                          data="data"
+                                          on-error="onErrorHandler($error)">
+                              </ng-infinite-autocomplete>`)($scope);
+
+          $scope.$digest();
+          
+          expect(InfiniteAutocompleteCore)
+              .toHaveBeenCalledWith(element[0]);
+
+          expect(InfiniteAutocompleteCore.prototype.setConfig)
+              .toHaveBeenCalledWith({
+                onError: jasmine.any(Function)
+              });
+
+      });
 
     });
 

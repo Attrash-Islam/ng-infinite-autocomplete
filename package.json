@@ -1,6 +1,6 @@
 {
   "name": "ng-infinite-autocomplete",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "description": "AngularJS 1.x infinite-autocomplete wrapper",
   "main": "./dist/index.js",
   "files": [
@@ -10,10 +10,11 @@
     "clean": "rimraf ./dist",
     "build": "npm run clean && npm run build:umd && npm run build:umd:debug",
     "watch": "npm run clean && npm run build:watch",
-    "build:watch": "webpack ./src/index.ts ./dist/index.debug.js --output-library-target=\"umd\" -d --watch",
-    "build:umd": "webpack ./src/index.ts ./dist/index.js --output-library-target=\"umd\" -p --config webpack.production.config.js",
-    "build:umd:debug": "webpack ./src/index.ts ./dist/index.debug.js --output-library-target=\"umd\" -d",
-    "prepublish": "npm run build",
+    "build:watch": "webpack ./src/index.ts ./dist/index.debug.js --output-library-target=\"umd\" --watch",
+    "build:umd": "webpack ./src/index.ts ./dist/index.js --output-library-target=\"umd\" --config webpack.production.config.js",
+    "build:umd:debug": "webpack ./src/index.ts ./dist/index.debug.js --output-library-target=\"umd\"",
+    "prepublish": "npm run validate-build",
+    "validate-build": "npm run build && npm run test",
     "test": "karma start karma.conf.js",
     "test:watch": "karma start karma.conf.js --single-run false"
   },
@@ -46,8 +47,9 @@
     "angular": "1.6.1",
     "angular-mocks": "1.6.1",
     "coveralls": "2.11.15",
+    "ghooks": "2.0.2",
     "istanbul-instrumenter-loader": "1.2.0",
-    "jasmine": "2.5.3",
+    "jasmine-core": "2.5.2",
     "karma": "1.3.0",
     "karma-coverage": "1.1.1",
     "karma-jasmine": "1.1.0",
@@ -55,11 +57,17 @@
     "karma-source-map-support": "1.2.0",
     "karma-webpack": "2.0.1",
     "rimraf": "2.5.4",
-    "ts-loader": "1.3.3",
-    "typescript": "2.2.1",
-    "webpack": "1.14.0"
+    "ts-loader": "3.1.1",
+    "typescript": "2.5.3",
+    "uglifyjs-webpack-plugin": "1.0.1",
+    "webpack": "2.6.1"
   },
   "dependencies": {
-    "infinite-autocomplete": "3.0.0"
+    "infinite-autocomplete": "3.1.0"
+  },
+  "config": {
+    "ghooks": {
+      "pre-commit": "npm run validate-build"
+    }
   }
 }

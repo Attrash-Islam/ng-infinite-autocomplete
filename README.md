@@ -105,6 +105,14 @@ See this section on <a href="https://github.com/Attrash-Islam/infinite-autocompl
    */
   onSelect?:Function($element, $data);
   /**
+    * on-loading-state-change event output handler when choosing an option
+    */
+  onLoadingStateChange?($loadingState: boolean);
+  /**
+    * on-error event output handler when exception thrown
+    */
+  onError?(error: $error);
+  /**
    * max height for the options
    */
   maxHeight?:string;

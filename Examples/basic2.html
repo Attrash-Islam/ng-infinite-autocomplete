@@ -26,8 +26,10 @@
                     vm.changes.setup = $text + ', ' + $page + ', ' + $fetchSize;
                     $http.get("http://localhost:5000/data?text="+ $text + "&page=" + $page + "&fetchSize=" + $fetchSize)
                         .then(function(res) {
-                            //vm.changes.setup = 'received!';
-                            deferred.resolve(res.data);
+                          //vm.changes.setup = 'received!';
+                          deferred.resolve(res.data);
+                        }, function(err) {
+                          deferred.reject(err);
                         });
                     return deferred.promise;
                 }
