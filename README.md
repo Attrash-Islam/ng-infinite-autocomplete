@@ -155,12 +155,14 @@ See this section on <a href="https://github.com/Attrash-Islam/infinite-autocompl
             immutable
             fetch-size="vm.fetchSize"
             on-select="vm.onSelectHandler($element, $data)"
+            on-error="vm.onErrorHandler($error)"
+            on-loading-state-change="vm.onLoadingStateChangeHandler($loadingState)"
             max-height="vm.maxHeight"
             customized-input="vm.CustomInput"
             customized-options="vm.CustomOptions">
   </ng-infinite-autocomplete>
 ```
-This directive will use `vm.data` as a static data source, and the number of fetched data is `vm.fetchSize` in every scroll and/or search, the data will be treated as `immutable` and then you need to create new instance to update the options list for the autocomplete, it will run `vm.onSelectHandler($element, $data)` when selecting an option passing the clicked HTNLElement as the first argument and the data as the second one ({text: 'text', value: 'hi'}), and the maxmium height for the scrollable options will be `vm.maxHeight` (It will be overriden if not supplying enough scrollable area for options), and will use `vm.CustomInput` for implementing the input, and `vm.CustomOptions` for implementing the custom options also.
+This directive will use `vm.data` as a static data source, and the number of fetched data is `vm.fetchSize` in every scroll and/or search, the data will be treated as `immutable` and then you need to create new instance to update the options list for the autocomplete, it will run `vm.onSelectHandler($element, $data)` when selecting an option passing the clicked HTNLElement as the first argument and the data as the second one ({text: 'text', value: 'hi'}), and the maxmium height for the scrollable options will be `vm.maxHeight` (It will be overriden if not supplying enough scrollable area for options), and will use `vm.CustomInput` for implementing the input, and `vm.CustomOptions` for implementing the custom options also, loading states can be caught in `vm.onLoadingStateChangeHandler` and every exception will be passed to `vm.onErrorHandler`.
 
 You can exclude any attribute not desired as you like following the restrictions mentioned above.
 
