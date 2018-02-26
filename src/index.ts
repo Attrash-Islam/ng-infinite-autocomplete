@@ -9,6 +9,7 @@ angular.module(`infinite-autocomplete`, [])
     return {
         restrict: 'EA',
         scope: {
+            ngModel: "=",
             data: '=',
             fetchSize: '=',
             maxHeight: '=',
@@ -75,6 +76,13 @@ angular.module(`infinite-autocomplete`, [])
                 });
             }
 
+            let valueWatchListener = scope.$watch(`ngModel`, (newValue) => {
+              if(newValue) {
+                  inifinityAutocomplete.setConfig({
+                      value: newValue,
+                  });
+              }
+            });
 
             let fetchSizeWatchListener = scope.$watch(`fetchSize`, (newFetchSize) => {
                 if(newFetchSize) {
@@ -121,6 +129,7 @@ angular.module(`infinite-autocomplete`, [])
             });
 
             scope.$on(`$destroy`, () => {
+                valueWatchListener();
                 fetchSizeWatchListener();
                 maxHeightWatchListener();
                 dataWatchListener();

@@ -5,6 +5,7 @@
         
         <ng-infinite-autocomplete
             data="vm.data"
+            ng-model="vm.currentText"
             fetch-size="vm.fetchSize"
             on-select="vm.onSelectHandler($element, $data)">
         </ng-infinite-autocomplete>
@@ -21,6 +22,7 @@
                 vm.changes = {
                     setup: 'some'
                 };
+                vm.currentText = "Salsabel Eawissat";
                 vm.onSelectHandler = function() {
                     console.log(arguments);
                     vm.changes.setup = 'on select event!';

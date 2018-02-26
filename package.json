@@ -1,6 +1,6 @@
 {
   "name": "ng-infinite-autocomplete",
-  "version": "3.1.0",
+  "version": "3.2.0",
   "description": "AngularJS 1.x infinite-autocomplete wrapper",
   "main": "./dist/index.js",
   "files": [
@@ -63,7 +63,7 @@
     "webpack": "2.6.1"
   },
   "dependencies": {
-    "infinite-autocomplete": "3.1.0"
+    "infinite-autocomplete": "3.2.0"
   },
   "config": {
     "ghooks": {

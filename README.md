@@ -97,6 +97,10 @@ See this section on <a href="https://github.com/Attrash-Islam/infinite-autocompl
 
 ```
   /**
+   * current value
+   */
+  ngModel?: string;
+  /**
    * data static source
    */
   data?:Array<IOption>;
@@ -151,6 +155,7 @@ See this section on <a href="https://github.com/Attrash-Islam/infinite-autocompl
 
 ```js
   <ng-infinite-autocomplete
+            ng-model="vm.currentText"
             data="vm.data"
             immutable
             fetch-size="vm.fetchSize"

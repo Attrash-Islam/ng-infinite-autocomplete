@@ -67,6 +67,33 @@ describe(`ng-infinite-autocomplete Wrapper Unit Testing`, function() {
         });
     });
 
+    describe(`value feature support`, function() {
+
+      it(`should pass the value to the CORE.setConfig`, function() {
+          $scope.onErrorHandler = () => {};
+          $scope.data = [
+              { text: 'first', value: 1 }
+          ];
+          $scope.value = "what!";
+
+          element = $compile(`<ng-infinite-autocomplete
+                                          ng-model="value"
+                                          data="data">
+                              </ng-infinite-autocomplete>`)($scope);
+
+          $scope.$digest();
+          
+          expect(InfiniteAutocompleteCore)
+              .toHaveBeenCalledWith(element[0]);
+
+          expect(InfiniteAutocompleteCore.prototype.setConfig)
+              .toHaveBeenCalledWith({
+                value: "what!"
+              });
+
+      });
+
+    });
 
     describe(`Data feature support`, function() {
 
